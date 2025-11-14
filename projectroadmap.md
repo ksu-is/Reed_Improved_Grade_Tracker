@@ -1,10 +1,12 @@
 # Project Roadmap: Reed_Improved_Grade_Tracker
 
-## Current Status: In Progress (Coding Phase)
+## Current Status: In Progress
 
 ### Tasks Completed in Sprint 2:
-- [ ] Define core data structure (nested dictionary).
-- [ ] Implement function to add new grade categories.
-- [ ] Implement grade entry function ('add_grade').
-- [ ] Implement category average calculation.
-- [ ] Add function to display all grades and their averages.
+- [x] Define core data structure for courses, grades, and weights..
+- [x] Implement 'add_course' to initialize new courses.
+- [x] Implement 'add_grade' with logic to prompt for new category weights.
+- [x] Implement 'calculate_gpa' for weighted average of a single course.
+- [x] Implement 'save_grades' to flatten data to a .txt file.
+- [x] Implemented 'load_grades' to rebuild data from the .txt file.
+- [x] Built the main 'grade_tracker_app' menu to tie all functions together.
