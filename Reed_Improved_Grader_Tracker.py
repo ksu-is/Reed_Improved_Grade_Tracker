@@ -1,6 +1,8 @@
 grades = {}
 FILE_NAME = 'grdes_data.txt'
 
+
+
 def add_course(course_name):
     ##adds a new course and initializes data structure
     course_name = course_name.title()
@@ -40,3 +42,43 @@ def add_grade(course_name, score, category_name):
     ## add the grade to the course's grades list
     grades[course_name]['grades'].append((score, category_name))
     print(f"Grade {score}% added to {course_name} under category '{category_name}'.")
+
+def calculate_gpa(course_name, show_breakdown=True):
+    ##Calcualtes the weighted average grade for a single course
+    course_name = course_name.title()
+    if course_name not in grades or not grades[course_name]['grades']:
+        return "N/A"
+
+    course_data = grades[course_name]
+    course_weights = course_data['weights']
+
+    category_scores = {}
+
+    ##1. Organize scores by cateogry
+    for score, category in course_data['grades']:
+        category = str(category).title()
+        if category not in category_scores:
+            category_scores[category] = []
+        category_scores[category].append(score)
+    
+    total_weighted_sum = 0
+    total_category_weight = 0
+
+    ##2. Calcualte the average for each category and apply the course's specific weight
+    for category, scores in category_scores.items():
+        if category in course_weights:
+            category_weight = course_weights[category]
+            category_average = sum(scores) / len(scores)
+
+            total_weighted_sum += (category_average * category_weight)
+            total_category_weight += category_weight
+
+            if show_breakdown:
+                print(f"  > {category} Avg: {category_average:.2f}% (Weight: {category_weight}%)")
+
+    ##3. Final GPA calculation
+    if total_category_weight > 0:
+        final_gpa = total_weighted_sum / total_category_weight
+        return f"{final_gpa:.2f}%"
+    else:
+        return "No grades in weighted categories"
