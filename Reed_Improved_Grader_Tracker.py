@@ -1,6 +1,38 @@
 grades = {}
 FILE_NAME = 'grdes_data.txt'
 
+def load_grades():
+    ##laods grades data from a plain text file, rebuilding the nested structure.
+    global grades
+
+    try:
+        with open(FILE_NAME, 'r') as file:
+            grades = {}
+            for line in file:
+                ##Format: CourseName, Score, CategoryName, CategoryWeight
+                parts = line.strip(',')
+                if len(parts) == 4:
+                    course, score_str, category, weight_str = parts
+                    score = float(score_str)
+                    weight = float(weight_str)
+                    course = course.title()
+                    category = category.title()
+
+                    ##Rebuild the nested dictionary structure
+                    if course not in grades:
+                        grades[course] = {'grades': [], 'weights': {}}
+
+                    grades[course]['grades'].append((score, category))
+                    grades[course]['weights'][category] = weight
+
+            print(f"Loaded {len(grades)} courses from {FILE_NAME}.")
+
+    except FileNotFoundError:
+        print("No existing grades file found. Starting fresh.")
+    except Exception:
+        print("Error reading grades file. Data might be corrupt. Starting fresh.")
+        
+
 def save_grades():
     ##saves all courses, grades, and their course_specific weights to one text file.
     global grades
