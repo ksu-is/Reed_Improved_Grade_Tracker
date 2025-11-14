@@ -1,6 +1,23 @@
 grades = {}
 FILE_NAME = 'grdes_data.txt'
 
+def save_grades():
+    ##saves all courses, grades, and their course_specific weights to one text file.
+    global grades
+
+    try:
+        with open(FILE_NAME, 'w') as file:
+            for course, data in grades.items():
+                course_weights = data['weights']
+
+                if data['grades']:
+                    for score, category in data['grades']:
+                        weight = course_weights[category]
+                        ##Write in the format: CourseName, Score, CategoryName, CategoryWeight
+                        file.write(f"{course},{category},{weight}\n")
+        print(f"Grades and course_specific weights saved to {FILE_NAME}.")
+    except Exception as e:
+        print(f"Error saving grades: {e}")
 
 
 def add_course(course_name):
