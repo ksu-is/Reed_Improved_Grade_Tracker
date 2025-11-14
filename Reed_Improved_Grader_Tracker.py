@@ -131,3 +131,53 @@ def calculate_gpa(course_name, show_breakdown=True):
         return f"{final_gpa:.2f}%"
     else:
         return "No grades in weighted categories"
+    
+
+ ## Main Application Loop
+ 
+def grade_tracker_app():
+    ## This is the main user interface for the application
+    load_grades() ##This is important to load the data first
+
+    while True:
+        print("\n--- Grade Tracker Menu ---")
+        print("1. Add a New Course")
+        print("2. Add a Grade (Score and Category)")
+        ## Other items will be added as they are built
+        print("7. Save and Exit")
+
+        choice = input("Enter your choice (1-7): ")
+
+        if choice == '1':
+            name = input("Enter the course name: ")
+            add_course(name)
+
+        elif choice == '2':
+            if grades:
+                print("\nAvailable Courses:", ", ".join(grades.keys()))
+                course = input("Enter the course name to add grade: ")
+                category = input("Enter assignment type (e.g., Quiz, Test, Homework): ")
+                try: 
+                    score = float(input(f"Enter score for {category} (e.g., 92.5): "))
+                    add_grade(course, score, category)
+                except ValueError:
+                    print("invalid input for score. Please use a number.")
+            else:
+                print("Please add a course first (Menu 1).")
+
+        ## Space to add other elif choices
+        ##
+        ##
+
+        elif choice == "7":
+            save_grades() ##This is to save data on exit
+            print("Exiting the application. Goodbye")
+            break
+
+        else:
+            print("Invalid choice. Please enter a number from 1 to 7")
+
+
+if __name__ == "__main__":
+    grade_tracker_app()
+
