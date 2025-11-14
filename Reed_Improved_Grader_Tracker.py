@@ -1,9 +1,11 @@
-def initialize_tracker():
-    ## Returns and empty dictionary to store grades by category
-    ## The dictionary keys will be categories ("Quizzes', 'Projects')
-    ## the values will be lists of scores for that category.
-    return{}
+grades = {}
+FILE_NAME = 'grdes_data.txt'
 
-# Start the application by initializing the gradebook
-gradebook = intialize_tracker()
-print("Grade tracker initialized successfully.")
+def add_course(course_name):
+    ##adds a new course and initializes data structure
+    course_name = course_name.title()
+    if course_name not in grades:
+        grades[course_name] = {'grades': [], 'weights': {}}
+        print(f"Course '{course_name}' added.")
+    else:
+        print(f"Course '{course_name}' already exists.")
