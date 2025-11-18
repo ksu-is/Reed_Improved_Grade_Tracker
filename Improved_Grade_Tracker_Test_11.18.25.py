@@ -1,9 +1,9 @@
-grades = {} ##this is the global grades dictionary that I will keep referring to in order to store data globally instead of locally within a function.
+grades = {}
 FILE_NAME = 'grades_data.txt'
 
 def load_grades():
-    ##laods grades data from a plain text file, rebuilding the nested structure.
-    global grades ## This stores the grades information in the function to the grades dictionary globally instead of locally.
+    ##loads grades data from a plain text file, rebuilding the nested structure.
+    global grades ## This stores the grades information in the function to the grades list globally instead of locally.
 
     try:
         with open(FILE_NAME, 'r') as file:
@@ -35,7 +35,7 @@ def load_grades():
 
 def save_grades():
     ##saves all courses, grades, and their course_specific weights to one text file.
-    global grades ## This stores the grades information in the function to the grades dictionary globally instead of locally.
+    global grades ## This stores the grades information in the function to the grades list globally instead of locally.
 
     try:
         with open(FILE_NAME, 'w') as file:
@@ -61,17 +61,16 @@ def add_course(course_name):
     else:
         print(f"Course '{course_name}' already exists.")
 
-def delete_course():
-    ## Deletes a specified course and all of its grades/ weights.
-    global grades ## This stores the grades information in the function to the grades dictionary globally instead of locally.
+def delete_course(course_name):
+    ##Deletes a specified course and all its grades and weights
+    global grades ##This stores the grades information in the function to the grades list globally instead of locally.
     course_name = course_name.title()
 
     if course_name in grades:
         del grades[course_name]
-        print(f"Course '{course_name}' has been deleted. (remember to save before exiting!)")
+        print(f"Course '{course_name}' has been deleted. (Remember to save before exiting!)")
     else:
         print(f"Error: Course '{course_name}' not found.")
-
 
 
 def add_grade(course_name, score, category_name):
@@ -145,24 +144,24 @@ def calculate_gpa(course_name, show_breakdown=True):
     else:
         return "No grades in weighted categories"
     
+
 def calculate_all_gpas():
-    ##Calculates and prints the weighted GPA for all stored course.
-    global grades ## This stores the grades information in the function to the grades dictionary globally instead of locally.
-
+    ##Calculates and prints the weighted average GPA for all stored courses.
+    global grades ## This stores the grades information in the function to the grades list globally instead of locally.
+    
     if not grades:
-        print("No courses added yet.")
+        print("no courses added yet.")
         return
-
+    
     print("\n--- Summary of All Course GPAs 📈 ---")
-    print("--------------------------------------")
+    print("-------------------------------------")
 
-    for course_name in grades.key(): ## this extracts all course names and creates a sequence of them for hte loop to process.
-        ## iterate through every course in the grade tracker and print the final GPA for each one, without showing the detailed category breakdown.
+    for course_name in grades.keys():
+        ## Call calculate_gpa with show_breakdown=Flase to avoid clutter
         gpa_result = calculate_gpa(course_name, show_breakdown=False)
-        print(f"  > {course_name}: {gpa_result}")
+        print(f"   >{course_name}: {gpa_result}")
 
-    print("--------------------------------")
-
+    print("------------------------------------")
 
  ## Main Application Loop
  
@@ -211,4 +210,3 @@ def grade_tracker_app():
 
 if __name__ == "__main__":
     grade_tracker_app()
-
