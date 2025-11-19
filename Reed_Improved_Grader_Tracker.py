@@ -1,8 +1,22 @@
+
+## Global Data Structure
+# The main data structure is a nested dictionary to store courses, their grades, and category weights.
+# Structure:
+# grades = {
+#     'CourseName': {
+#         'grades': [(score1, category1), (score2, category2), ...],
+#         'weights': {'CategoryName': weight, ...}
+#     },
+#     ...
+
 grades = {} ##this is the global grades dictionary that I will keep referring to in order to store data globally instead of locally within a function.
 FILE_NAME = 'grades_data.txt'
 
+
+## Data Persistence Functions
+
 def load_grades():
-    ##laods grades data from a plain text file, rebuilding the nested structure.
+    ##loads grades data from a plain text file, rebuilding the nested structure.
     global grades ## This stores the grades information in the function to the grades dictionary globally instead of locally.
 
     try:
@@ -51,6 +65,9 @@ def save_grades():
     except Exception as e:
         print(f"Error saving grades: {e}")
 
+##-----------------------------------------------------------------------------------------------------------
+
+## Core Functionality
 
 def add_course(course_name):
     ##adds a new course and initializes data structure
@@ -255,7 +272,7 @@ def grade_tracker_app():
         else:
             print("Invalid choice. Please enter a number from 1 to 7")
 
-
+##Run the application
 if __name__ == "__main__":
     grade_tracker_app()
 
