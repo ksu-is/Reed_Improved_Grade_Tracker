@@ -13,10 +13,13 @@
 - [x] Added 'delete_course' function and integrated into Menu 6.
 - [x] Added 'calculate_all_gpas' summary function and integrated into Menu 3.
 - [x] Integrated the weights viewing menu as Menu 5.
+- [x] Add a function for the user to create a passcode to enter before allowing a DELETE.
+- [ ] Added ability to delete indivudal grades
+- [ ] Added the ability to change weights
 
 
 ### Ideas to add:
-- [ ] Add a function for the user to create a passcode to enter before allowing a DELETE.
+
 - [ ] Add a .capitalize type method to keep user from adding Math 1101 and MATH 1101.
 - [ ] Code review and cleanup, ensure all error handling works.
 - [ ] Create project marketing slide.
