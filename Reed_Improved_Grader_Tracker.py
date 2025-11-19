@@ -24,7 +24,7 @@ def load_grades():
             grades = {}
             for line in file:
                 ##Format: CourseName, Score, CategoryName, CategoryWeight
-                parts = line.strip(',')
+                parts = line.strip(',').split(',')
                 if len(parts) == 4:
                     course, score_str, category, weight_str = parts
                     score = float(score_str)

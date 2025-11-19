@@ -59,6 +59,7 @@ def save_grades():
                 if data['grades']:
                     for score, category in data['grades']:
                         weight = course_weights[category]
+                        
                         ##Write in the format: CourseName, Score, CategoryName, CategoryWeight
                         file.write(f"{course},{category},{weight}\n")
         print(f"Grades and course_specific weights saved to {FILE_NAME}.")
