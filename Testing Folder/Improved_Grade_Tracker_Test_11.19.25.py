@@ -24,7 +24,7 @@ def load_grades():
             grades = {}
             for line in file:
                 ##Format: CourseName, Score, CategoryName, CategoryWeight
-                parts = line.strip(',')
+                parts = line.strip(',').split(',')
                 if len(parts) == 4:
                     course, score_str, category, weight_str = parts
                     score = float(score_str)
@@ -59,9 +59,8 @@ def save_grades():
                 if data['grades']:
                     for score, category in data['grades']:
                         weight = course_weights[category]
-                        
                         ##Write in the format: CourseName, Score, CategoryName, CategoryWeight
-                        file.write(f"{course},{category},{weight}\n")
+                        file.write(f"{course},{score},{category},{weight}\n")
         print(f"Grades and course_specific weights saved to {FILE_NAME}.")
     except Exception as e:
         print(f"Error saving grades: {e}")
@@ -79,7 +78,7 @@ def add_course(course_name):
     else:
         print(f"Course '{course_name}' already exists.")
 
-def delete_course():
+def delete_course(course_name):
     ## Deletes a specified course and all of its grades/ weights.
     global grades ## This stores the grades information in the function to the grades dictionary globally instead of locally.
     course_name = course_name.title()
@@ -175,7 +174,7 @@ def calculate_all_gpas():
     print("\n--- Summary of All Course GPAs 📈 ---")
     print("--------------------------------------")
 
-    for course_name in grades.key(): ## this extracts all course names and creates a sequence of them for hte loop to process.
+    for course_name in grades.keys(): ## this extracts all course names and creates a sequence of them for hte loop to process.
         ## iterate through every course in the grade tracker and print the final GPA for each one, without showing the detailed category breakdown.
         gpa_result = calculate_gpa(course_name, show_breakdown=False)
         print(f"  > {course_name}: {gpa_result}")
@@ -191,8 +190,8 @@ def grade_tracker_app():
 
     while True:
         print("\n--- Grade Tracker Menu ---")
-        print("1. Add a New Course")
-        print("2. Add a Grade (Score and Category)")
+        print("1. Add a New Course.")
+        print("2. Add a Grade (Score and Category).")
         print("3. View GPA for ALL Course.")
         print("4. View GPA for a SINGLE Course (with Breakdown).")
         print("5. View course cateogry weights.")
