@@ -1,2 +1,5 @@
 # Reed_Improved_Grade_Tracker
-This repository is for the creation of an improved grade tracker for students to use.
+
+A Course-Specific, Weighted GPA Calculator and Tracker
+
+This application is built using Python 3 to provide students with a course_specific tool for calculating weighted grade point averages (GPAs) and managing grade data persistently. It is designed to mimi real_world reporting where different assignement types (Quizzes, Projects, Exams) carry different percentage weights for the final score.
