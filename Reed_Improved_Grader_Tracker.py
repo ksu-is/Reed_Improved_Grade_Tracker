@@ -107,6 +107,7 @@ def add_grade(course_name, score, category_name):
 
 def calculate_gpa(course_name, show_breakdown=True):
     ##Calcualtes the weighted average grade for a single course
+    ## If show_breakdown is True, it prints the average for each category.
     course_name = course_name.title()
     if course_name not in grades or not grades[course_name]['grades']:
         return "N/A"
@@ -174,7 +175,11 @@ def grade_tracker_app():
         print("\n--- Grade Tracker Menu ---")
         print("1. Add a New Course")
         print("2. Add a Grade (Score and Category)")
-        ## Other items will be added as they are built
+        print("3. View GPA for ALL Course.")
+        print("4. View GPA for a SINGLE Course (with Breakdown).")
+        print("5. View course cateogry weights.")
+        print("6. Delete a course.")
+        ## Other items can be added as they are built
         print("7. Save and Exit")
 
         choice = input("Enter your choice (1-7): ")
@@ -186,7 +191,7 @@ def grade_tracker_app():
         elif choice == '2':
             if grades:
                 print("\nAvailable Courses:", ", ".join(grades.keys()))
-                course = input("Enter the course name to add grade: ")
+                course = input("Enter the course name to add grade to: ")
                 category = input("Enter assignment type (e.g., Quiz, Test, Homework): ")
                 try: 
                     score = float(input(f"Enter score for {category} (e.g., 92.5): "))
@@ -195,6 +200,48 @@ def grade_tracker_app():
                     print("invalid input for score. Please use a number.")
             else:
                 print("Please add a course first (Menu 1).")
+
+        elif choice == '3':
+            calculate_all_gpas()
+
+        elif choice == '4':
+            if grades:
+                print("\nAvailable courses: ", ", ".join(grades.keys()))
+                course = input("Enter course name to view GPA: ")
+                print(f"\n--- GPA Calculation for {course.title()} ---")
+                ## Call the calculate_gpa function with default show_breakdown=True
+                gpa = calculate_gpa(course)
+                print(f"\nFinal GPA for {course.title()}: **{gpa}**")
+            else:
+                print("No available courses to calculate GPA. Please add a course first (Menu 1).")
+
+        elif choice == '5':
+            if grades:
+                print("\nAvailable Courses: ", ", ".join(grades.keys()))
+                course_to_view = input("Enter course name to view weights: ").title()
+
+                if course_to_view in grades:
+                    weights = grades[course_to_view]['weights']
+                    print(f"\n--- {course_to_view} Category Weights ---")
+                    if weights:
+                        for cat, weight in weights.items():
+                            print(f"  > {cat}: {weight}%")
+                    else:
+                        print(f"No categories defined for {course_to_view} yet.")
+                else:
+                    print(f"Error: Course '{course_to_view}' not found.")
+            else:
+                print("No courses availabale to view weights.")
+
+        elif choice == '6':
+            if grades:
+                print("\nAvailabel courses:", ", ".join(grades.keys()))
+                course_to_delete = input("Enter the course name to DELETE: ")
+                delete_course(course_to_delete)
+            else:
+                print("No course available to delete.")
+                
+            
 
         ## Space to add other elif choices
         ##

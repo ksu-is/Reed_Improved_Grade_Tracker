@@ -10,3 +10,7 @@
 - [x] Implement 'save_grades' to flatten data to a .txt file.
 - [x] Implemented 'load_grades' to rebuild data from the .txt file.
 - [x] Built the main 'grade_tracker_app' menu to tie all functions together.
+
+
+### Ideas to add:
+- [ ] Add a function for the user to create a passcode to enter before allowing a DELETE.
