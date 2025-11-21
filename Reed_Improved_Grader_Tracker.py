@@ -99,12 +99,25 @@ def delete_course(course_name):
     else:
         print(f"Error: Course '{course_name}' not found.")   
 
-##    if course_name in grades:
-##        del grades[course_name]
-##        print(f"Course '{course_name}' has been deleted. (remember to save before exiting!)")
-##    else:
-##        print(f"Error: Course '{course_name}' not found.")
+def delete_individual_grade(course_name, score, category_name):
+    ## Deletes a single instance of a grade (score, Category) tuple from a course's grade list.
+    course_name = course_name.title()
+    category_name = category_name.title()
 
+    if course_name not in grades:
+        print(f"Error: course '{course_name}' not found.")
+        return
+    
+    grade_list = grades[course_name]['grades']
+    ##creates the tuple we are looking to delete: (score, category_name)
+    grade_to_delete = (score, category_name)
+
+    try:
+        grade_list.remove(grade_to_delete)
+        print(f"Successfully deleted one instance of grade {score}% in '{category_name}' for {course_name}.")
+        ## The next GPA calculation will automatically adjust, as the weight is cateogry based.
+    except ValueError:
+        print(f"Error: Could not find {score}% in '{category_name}' for {course_name}. Check score and cateogry name.")  
 
 
 def add_grade(course_name, score, category_name):
@@ -124,7 +137,7 @@ def add_grade(course_name, score, category_name):
         print(f"'{category_name}' is NEW assignment type for {course_name}.")
         while True:
             try:
-                weight = float(input(f"enter the percentage weight for ALL '{category_name}' assignments in {course_name} (e.g., 20): "))
+                weight = float(input(f"Enter the percentage weight for ALL '{category_name}' assignments in {course_name} (e.g., 20): "))
                 if 0 <= weight <= 100:
                     course_weights[category_name] = weight
                     print(f"Category '{category_name}' weight set to {weight}% for {course_name}.")
@@ -208,14 +221,15 @@ def grade_tracker_app():
         print("\n--- Grade Tracker Menu ---")
         print("1. Add a New Course.")
         print("2. Add a Grade (Score and Category).")
-        print("3. View GPA for ALL Course.")
+        print("3. View GPA for ALL Courses.")
         print("4. View GPA for a SINGLE Course (with Breakdown).")
         print("5. View course cateogry weights.")
         print("6. Delete a course.")
+        print("7. Delete an individual grade.")
         ## Other items can be added as they are built
-        print("7. Save and Exit")
+        print("8. Save and Exit")
 
-        choice = input("Enter your choice (1-7): ")
+        choice = input("Enter your choice (1-8): ")
 
         if choice == '1':
             name = input("Enter the course name: ")
@@ -274,19 +288,31 @@ def grade_tracker_app():
             else:
                 print("No course available to delete.")
                 
-            
+        elif choice == '7':
+            if grades:
+                print("\nAvailable Course:", ", ".join(grades.keys()))
+                course = input("Enter course name to delete grade from: ").title()
+                category = input("Enter the assignment type (e.g., Quiz, Test): ").title()
+                try:
+                    ## Must cast the input to a float since scores are stored as floats.
+                    score = float(input(f"Enter the specific score to delete (e.g., 85.0): "))
+                    delete_individual_grade(course, score, category)
+                except ValueError:
+                    print("Invalid input for score. Please use a number.")
+            else:
+                print("No courses available to delete grades from.")        
 
         ## Space to add other elif choices
         ##
         ##
 
-        elif choice == "7":
+        elif choice == "8":
             save_grades() ##This is to save data on exit
             print("Exiting the application. Goodbye")
             break
 
         else:
-            print("Invalid choice. Please enter a number from 1 to 7")
+            print("Invalid choice. Please enter a number from 1 to 8")
 
 ##Run the application
 if __name__ == "__main__":
