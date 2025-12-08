@@ -20,11 +20,11 @@
 
 ### Ideas to add:
 
-- [ ] Code review and cleanup, ensure all error handling works.
-- [ ] Create project marketing slide.
-    - [ ] List the project team members.
-    - [ ] Show the title of the project.
-    - [ ] Show a tag line that introduces the main concept of what it does or will do.
-    - [ ] Show 1 - 2 screedshots or pictures demonstrating the idea or parts.
+- [x] Code review and cleanup, ensure all error handling works.
+- [x] Create project marketing slide.
+    - [x] List the project team members.
+    - [x] Show the title of the project.
+    - [x] Show a tag line that introduces the main concept of what it does or will do.
+    - [x] Show 1 - 2 screedshots or pictures demonstrating the idea or parts.
 - [ ] Prepare 5 minute presentation slide (max 3)
 
