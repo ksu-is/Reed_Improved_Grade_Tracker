@@ -1,2 +1,6 @@
 Is 3020,92.5,Test,60.0
 Math 1101,95.0,Test,60.0
+Math 1101,88.0,Homework,10.0
+Math 1101,79.0,Quiz,20.0
+Math 1101,100.0,Test,60.0
+Pols 1101,92.0,Test,60.0
