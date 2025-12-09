@@ -26,5 +26,5 @@
     - [x] Show the title of the project.
     - [x] Show a tag line that introduces the main concept of what it does or will do.
     - [x] Show 1 - 2 screedshots or pictures demonstrating the idea or parts.
-- [ ] Prepare 5 minute presentation slide (max 3)
+- [x] Prepare 5 minute presentation slide (max 3)
 
